@@ -2306,7 +2306,8 @@ local function startAutoParry()
             else
                 parryButtonPress:Fire()
             end
-        end
+        else
+		parryButtonPress:Fire()
     end
 
 
