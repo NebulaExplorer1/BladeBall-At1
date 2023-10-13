@@ -2283,32 +2283,30 @@ local function startAutoParry()
             chooseNewFocusedBall()
         end
 
-        local ball = focusedBall
-local distanceToPlayer = (ball.Position - charPos).Magnitude
-local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
+local ball = focusedBall
+        local distanceToPlayer = (ball.Position - charPos).Magnitude
+        local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
+        
+        if distanceToPlayer < 35 then
+            parryButtonPress:Fire()
+        end
+        local isCheckingRage = false
 
--- Check if the ball is within 35 studs and enable ParryAttempt
-if distanceToPlayer < 35 then
-    parryButtonPress:Fire()
-end
-
-local isCheckingRage = false
-
--- Check if timeUntilImpact and other conditions are met
-if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThreshold(ballVelocityTowardsPlayer) then
-    if character.Abilities["Raging Deflection"].Enabled and UseRage == true then
-        if not isCheckingRage then
-            isCheckingRage = true
-            abilityButtonPress:Fire()
-            if not isWalkSpeedZero() then
+        if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThreshold(ballVelocityTowardsPlayer) then
+            if character.Abilities["Raging Deflection"].Enabled and UseRage == true then
+                if not isCheckingRage then
+                    isCheckingRage = true
+                    abilityButtonPress:Fire()
+                    if not isWalkSpeedZero() then
+                        parryButtonPress:Fire()
+                    end
+                    isCheckingRage = false
+                end
+            else
                 parryButtonPress:Fire()
             end
-            isCheckingRage = false
         end
-    else
-        parryButtonPress:Fire()
     end
-end
 
     heartbeatConnection = game:GetService("RunService").Heartbeat:Connect(function()
         checkBallDistance()
