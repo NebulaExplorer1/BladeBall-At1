@@ -2322,7 +2322,7 @@ local function stopAutoParry()
     end
 end
 
-local win = SolarisLib:Window("SYNAPSE")
+local win = SolarisLib:Window("Cryptic")
 local Main = win:Tab("Main")
 local Section1 = Main:Section("Main")
 local Section2 = Main:Section("Server")
