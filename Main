@@ -2237,7 +2237,7 @@ local function startAutoParry()
     chooseNewFocusedBall()
 
     local BASE_THRESHOLD = 0.15
-    local VELOCITY_SCALING_FACTOR_FAST = 0.500
+    local VELOCITY_SCALING_FACTOR_FAST = 0.300
     local VELOCITY_SCALING_FACTOR_SLOW = 0.1
 
     local function getDynamicThreshold(ballVelocityMagnitude)
