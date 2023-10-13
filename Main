@@ -2315,7 +2315,7 @@ end
 
     heartbeatConnection = game:GetService("RunService").Heartbeat:Connect(function()
         checkBallDistance()
-    end)
+    end
 end
 
 local function stopAutoParry()
