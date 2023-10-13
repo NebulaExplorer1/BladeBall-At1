@@ -2288,7 +2288,7 @@ local function startAutoParry()
         local distanceToPlayer = (ball.Position - charPos).Magnitude
         local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
         
-        if distanceToPlayer < 40 then
+        if distanceToPlayer < 50 then
             parryButtonPress:Fire()
         end
         local isCheckingRage = false
