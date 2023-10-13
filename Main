@@ -2308,8 +2308,6 @@ if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThresho
     else
         parryButtonPress:Fire()
     end
-else
-    parryButtonPress:Fire()
 end
 
     heartbeatConnection = game:GetService("RunService").Heartbeat:Connect(function()
