@@ -2285,32 +2285,33 @@ local function startAutoParry()
         end
 
         local ball = focusedBall
-        local distanceToPlayer = (ball.Position - charPos).Magnitude
-        local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
-        
-        if distanceToPlayer < 35 then
-            parryButtonPress:Fire()
-        end
+local distanceToPlayer = (ball.Position - charPos).Magnitude
+local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
 
-        local isCheckingRage = false
-
-        if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThreshold(ballVelocityTowardsPlayer) then
-            if character.Abilities["Raging Deflection"].Enabled and UseRage == true then
-                if not isCheckingRage then
-                    isCheckingRage = true
-                    abilityButtonPress:Fire()
-                    if not isWalkSpeedZero() then
-                        parryButtonPress:Fire()
-                    end
-                    isCheckingRage = false
-                end
-            else
-                parryButtonPress:Fire()
-            end
-	else
+-- Check if the ball is within 35 studs and enable ParryAttempt
+if distanceToPlayer < 35 then
     parryButtonPress:Fire()
 end
 
+local isCheckingRage = false
+
+-- Check if timeUntilImpact and other conditions are met
+if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThreshold(ballVelocityTowardsPlayer) then
+    if character.Abilities["Raging Deflection"].Enabled and UseRage == true then
+        if not isCheckingRage then
+            isCheckingRage = true
+            abilityButtonPress:Fire()
+            if not isWalkSpeedZero() then
+                parryButtonPress:Fire()
+            end
+            isCheckingRage = false
+        end
+    else
+        parryButtonPress:Fire()
+    end
+else
+    parryButtonPress:Fire()
+end
 
     heartbeatConnection = game:GetService("RunService").Heartbeat:Connect(function()
         checkBallDistance()
