@@ -2241,7 +2241,7 @@ local function startAutoParry()
     local VELOCITY_SCALING_FACTOR_SLOW = 0.1
 
     local function getDynamicThreshold(ballVelocityMagnitude)
-        if ballVelocityMagnitude > 75 then
+        if ballVelocityMagnitude > 60 then
             print("Going Fast!")
             return math.max(0.20, BASE_THRESHOLD - (ballVelocityMagnitude * VELOCITY_SCALING_FACTOR_FAST))
         else
