@@ -1,0 +1,71 @@
+local BUTTON_SPAM_DELAY = 0.1
+local MAX_BALL_PASSES = 6
+local DISTANCE_THRESHOLD = 70
+
+local player = game.Players.LocalPlayer
+
+local function CRYPTIC_fake_script() -- Frame.LocalScript 
+    local script = Instance.new('LocalScript', Frame)
+
+    local spamButton = false
+    local ballPasses = 0
+
+    local function findNearestPlayer()
+        local nearestPlayer
+        local nearestDistance = math.huge
+
+        for _, otherPlayer in pairs(game.Players:GetPlayers()) do
+            if otherPlayer ~= player then
+                local playerPosition = player.Character.HumanoidRootPart.Position
+                local otherPlayerPosition = otherPlayer.Character.HumanoidRootPart.Position
+                local distance = (playerPosition - otherPlayerPosition).Magnitude
+
+                if distance < nearestDistance then
+                    nearestDistance = distance
+                    nearestPlayer = otherPlayer
+                end
+            end
+        end
+
+        return nearestPlayer
+    end
+
+    local function spamButtonAndParry()
+        spamButton = true
+        while spamButton do
+            local otherPlayer = findNearestPlayer()
+            if otherPlayer then
+                local playerPosition = player.Character.HumanoidRootPart.Position
+                local otherPlayerPosition = otherPlayer.Character.HumanoidRootPart.Position
+                local distance = (playerPosition - otherPlayerPosition).Magnitude
+                if distance <= DISTANCE_THRESHOLD then
+                    local args = {
+                        [1] = 2,
+                    }
+                    game:GetService("ReplicatedStorage").Remotes.ParryAttempt:FireServer(unpack(args))
+                end
+            end
+            wait(BUTTON_SPAM_DELAY)
+        end
+    end
+
+    script.Parent.ON.MouseButton1Up:Connect(function()
+        spamButton = not spamButton
+        if spamButton then
+            spamButtonAndParry()
+        end
+    end)
+    
+    workspace.Balls.ChildAdded:Connect(function(ball)
+        ball.Touched:Connect(function(hit)
+            local otherPlayer = findNearestPlayer()
+            if otherPlayer and hit.Parent == otherPlayer.Character then
+                ballPasses = ballPasses + 1
+                if ballPasses >= MAX_BALL_PASSES then
+                    -- Stop spamming the button
+                    spamButton = false
+                end
+            end
+        end)
+    end)
+end
