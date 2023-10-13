@@ -1,3 +1,4 @@
+
 game:GetService("Players").LocalPlayer.Idled:connect(function()
 	game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 	wait(1)
@@ -2240,7 +2241,7 @@ local function startAutoParry()
     local VELOCITY_SCALING_FACTOR_SLOW = 0.1
 
     local function getDynamicThreshold(ballVelocityMagnitude)
-        if ballVelocityMagnitude > 60 then
+        if ballVelocityMagnitude > 75 then
             print("Going Fast!")
             return math.max(0.20, BASE_THRESHOLD - (ballVelocityMagnitude * VELOCITY_SCALING_FACTOR_FAST))
         else
@@ -2283,7 +2284,7 @@ local function startAutoParry()
             chooseNewFocusedBall()
         end
 
-local ball = focusedBall
+        local ball = focusedBall
         local distanceToPlayer = (ball.Position - charPos).Magnitude
         local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
         
@@ -2302,17 +2303,16 @@ local ball = focusedBall
                     end
                     isCheckingRage = false
                 end
-	    end
-	end
             else
                 parryButtonPress:Fire()
             end
         end
     end
 
+
     heartbeatConnection = game:GetService("RunService").Heartbeat:Connect(function()
         checkBallDistance()
-    end
+    end)
 end
 
 local function stopAutoParry()
