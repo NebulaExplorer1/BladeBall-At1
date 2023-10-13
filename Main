@@ -2303,6 +2303,8 @@ local ball = focusedBall
                     end
                     isCheckingRage = false
                 end
+	    end
+	end
             else
                 parryButtonPress:Fire()
             end
