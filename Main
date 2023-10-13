@@ -2291,6 +2291,7 @@ local function startAutoParry()
         if distanceToPlayer < 35 then
             parryButtonPress:Fire()
         end
+
         local isCheckingRage = false
 
         if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThreshold(ballVelocityTowardsPlayer) then
@@ -2306,8 +2307,9 @@ local function startAutoParry()
             else
                 parryButtonPress:Fire()
             end
-        end
-    end
+	else
+    parryButtonPress:Fire()
+end
 
 
     heartbeatConnection = game:GetService("RunService").Heartbeat:Connect(function()
