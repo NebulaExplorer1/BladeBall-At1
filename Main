@@ -1,15 +1,9 @@
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
--- / Key System \ --
-
--- Booting Library
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
 -- your key
 
 -- Values & Functions
-_G.Key = "Your key"
+_G.Key = "Cryptic"
 _G.KeyInput = "string"
 
 -- notification
