@@ -3,7 +3,7 @@ local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shle
 -- your key
 
 -- Values & Functions
-_G.Key = "Cryptic"
+_G.Key = "string"
 _G.KeyInput = "string"
 
 -- notification
